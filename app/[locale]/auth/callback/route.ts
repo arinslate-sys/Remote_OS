@@ -15,9 +15,17 @@ export async function GET(request: NextRequest) {
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     );
     
-    await supabase.auth.exchangeCodeForSession(code);
+    // 交換 code 取得 session
+    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    
+    if (error) {
+      console.error('Auth error:', error);
+      // 發生錯誤,跳回登入頁
+      return NextResponse.redirect(`${origin}/en/login`);
+    }
   }
 
+  // 從 referer 獲取語言
   const referer = request.headers.get('referer');
   let locale = 'en';
   
@@ -29,5 +37,6 @@ export async function GET(request: NextRequest) {
     }
   }
 
+  // 成功後跳轉首頁
   return NextResponse.redirect(`${origin}/${locale}`);
 }

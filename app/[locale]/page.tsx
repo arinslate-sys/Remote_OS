@@ -50,9 +50,9 @@ export default async function HomePage({
   const session = await getSession();
   const userId = session?.user.id;
 
-  if (!session || !userId) {
-    return <LandingPage locale={locale} />;
-  }
+  // 臨時:不檢查 session,直接顯示 Dashboard
+  // if (!session || !userId) {
+  //   return <LandingPage locale={locale} />;
+  // }
 
   return <Dashboard />;
-}
