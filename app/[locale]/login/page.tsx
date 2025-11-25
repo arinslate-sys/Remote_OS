@@ -1,5 +1,3 @@
-請**完整刪除** `app/[locale]/login/page.tsx` 的所有內容,然後**只貼上**這段純程式碼:
-```typescript
 'use client';
 
 import { supabase } from '../../supabaseClient';
@@ -66,4 +64,3 @@ export default function LoginPage() {
     </div>
   );
 }
-```

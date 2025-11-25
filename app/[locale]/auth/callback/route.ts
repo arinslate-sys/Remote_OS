@@ -18,12 +18,10 @@ export async function GET(request: NextRequest) {
     await supabase.auth.exchangeCodeForSession(code);
   }
 
-  // 修正:從 referer 或 cookie 獲取語言,或使用預設值
   const referer = request.headers.get('referer');
-  let locale = 'en'; // 預設語言
+  let locale = 'en';
   
   if (referer) {
-    // 嘗試從 referer URL 中提取語言
     const refererUrl = new URL(referer);
     const pathSegments = refererUrl.pathname.split('/');
     if (pathSegments[1] === 'zh' || pathSegments[1] === 'en') {
@@ -31,6 +29,5 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // 登入成功後跳轉回對應語言的首頁
   return NextResponse.redirect(`${origin}/${locale}`);
 }
