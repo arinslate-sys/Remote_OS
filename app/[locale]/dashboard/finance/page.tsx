@@ -1,9 +1,9 @@
 'use client';
 
-import { supabase } from '../../supabaseClient'; // ✅ 修正路徑
+import { supabase } from '../../../supabaseClient'; // ✅ 修正路徑
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import Header from '../../../components/Header'; 
+import Header from '../../../../components/Header'; 
 import { 
   TrendingUp, 
   ArrowLeft, 

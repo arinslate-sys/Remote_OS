@@ -1,8 +1,8 @@
 // File: C:\codes\Remote_OS\app\[locale]\finance\page.tsx
-import * as entry from '../../../../../app/[locale]/finance/page.js'
+import * as entry from '../../../../../app/[locale]/dashboard/finance/page.jsx'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
-type TEntry = typeof import('../../../../../app/[locale]/finance/page.js')
+type TEntry = typeof import('../../../../../app/[locale]/dashboard/finance/page.jsx')
 
 type SegmentParams<T extends Object = any> = T extends Record<string, any>
   ? { [K in keyof T]: T[K] extends string ? string | string[] | undefined : never }

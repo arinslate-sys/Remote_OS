@@ -50,7 +50,7 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 // Validate ../../app/[locale]/finance/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/[locale]/finance">> = Specific
-  const handler = {} as typeof import("../../app/[locale]/finance/page.js")
+  const handler = {} as typeof import("../../app/[locale]/dashboard/finance/page.jsx")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check
