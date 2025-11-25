@@ -3,8 +3,8 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import "../globals.css"; 
 
-// 【商業級配置】強制使用 Edge Runtime
-// 這讓你的網站能部署到 Cloudflare 全球節點，實現極致速度
+// [Commercial Grade Configuration] Force Edge Runtime usage
+// This allows your site to deploy to Cloudflare global nodes for maximum speed
 export const runtime = 'edge';
 
 export const metadata: Metadata = {
@@ -17,13 +17,13 @@ export default async function RootLayout({
   params
 }: {
   children: React.ReactNode;
-  // Next.js 15/16 規範：params 必須是非同步 Promise
+  // Next.js 15/16 specification: params must be an asynchronous Promise
   params: Promise<{ locale: string }>;
 }) {
-  // 必須先 await 才能讀取 locale，否則會報錯
+  // Must await before reading locale, otherwise it will error
   const { locale } = await params;
 
-  // 伺服器端獲取翻譯訊息
+  // Get translation messages on the server side
   const messages = await getMessages();
 
   return (
