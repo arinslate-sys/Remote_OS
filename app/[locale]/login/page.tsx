@@ -5,17 +5,19 @@ import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation'; // 新增
+import { useParams } from 'next/navigation';
 
 export default function LoginPage() {
-  const [origin, setOrigin] = useState('');
+  const [redirectUrl, setRedirectUrl] = useState('');
   const t = useTranslations('Login');
-  const params = useParams(); // 新增
-  const locale = params.locale as string; // 新增
+  const params = useParams();
+  const locale = params.locale as string;
 
   useEffect(() => {
-    setOrigin(window.location.origin);
-  }, []);
+    // 動態獲取當前網域
+    const origin = window.location.origin;
+    setRedirectUrl(`${origin}/${locale}/auth/callback`);
+  }, [locale]);
 
   return (
     <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4">
@@ -31,7 +33,7 @@ export default function LoginPage() {
           </p>
         </div>
         
-        {origin && locale && (
+        {redirectUrl && (
           <Auth
             supabaseClient={supabase}
             appearance={{
@@ -56,10 +58,42 @@ export default function LoginPage() {
             theme="dark"
             providers={['google']} 
             onlyThirdPartyProviders={true}
-            redirectTo={`${origin}/${locale}/auth/callback`}
+            redirectTo={redirectUrl}
           />
         )}
       </div>
     </div>
   );
 }
+```
+
+---
+
+### **3. 檢查 Supabase 設定**
+
+你需要在 Supabase Dashboard 中設定正確的 Redirect URLs:
+
+1. 前往 [Supabase Dashboard](https://app.supabase.com)
+2. 選擇你的專案
+3. 前往 **Authentication** → **URL Configuration**
+4. 在 **Redirect URLs** 中新增:
+```
+   https://cipher-sys.pages.dev/en/auth/callback
+   https://cipher-sys.pages.dev/zh/auth/callback
+```
+
+5. 確保 **Site URL** 設定為:
+```
+   https://cipher-sys.pages.dev
+```
+
+---
+
+### **4. 檢查環境變數**
+
+確保 Cloudflare Pages 環境變數正確設定:
+
+前往 Cloudflare Pages Dashboard → Settings → Environment Variables:
+```
+NEXT_PUBLIC_SUPABASE_URL=https://vyyssqnmdkncbuftgkko.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5eXNzcW5tZGtuY2J1ZnRna2tvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2NDc3NDYsImV4cCI6MjA3OTIyMzc0Nn0.CNc6GdTLejMElAQHta2uko5T1z8ZmuPFeLxgF_tSivs
