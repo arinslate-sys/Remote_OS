@@ -2,13 +2,12 @@
 
 import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
-import { Radio, RefreshCw, MapPin, Wallet, ArrowRight } from 'lucide-react'; 
+import { Radio, Wallet, ArrowRight, MapPin } from 'lucide-react'; 
 import Link from 'next/link';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { supabase } from '../app/supabaseClient'; // ✅ 修正引入
 
 export default function Dashboard() {
   const t = useTranslations('App');
-  const supabase = createClientComponentClient();
   
   // 狀態管理
   const [time, setTime] = useState<Date | null>(null);
@@ -41,18 +40,19 @@ export default function Dashboard() {
       // 計算本月起始日
       const startOfMonth = new Date().toISOString().slice(0, 7) + '-01';
 
-      // 查詢本月總支出
+      // 查詢本月總支出 (修正為 fin_transactions)
       const { data, error } = await supabase
-        .from('fin_daily_logs')
-        .select('daily_spending')
+        .from('fin_transactions')
+        .select('amount')
         .eq('user_id', user.id)
-        .gte('log_date', startOfMonth);
+        .lt('amount', 0) // 只計算支出
+        .gte('start_date', startOfMonth);
 
       if (error) throw error;
 
-      // 計算總和
-      const total = data?.reduce((sum, log) => sum + (log.daily_spending || 0), 0) || 0;
-      setMonthSpend(total);
+      // 計算總和並轉為正數顯示
+      const total = data?.reduce((sum, log) => sum + Math.abs(log.amount), 0) || 0;
+      setMonthSpend(Math.round(total));
     } catch (error) {
       console.error('Error loading dashboard data:', error);
     } finally {
@@ -75,7 +75,6 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white selection:bg-blue-500 selection:text-white pb-20">
-      {/* 這裡不需要 Header，因為 Layout 已經有了，或者我們根據設計決定是否隱藏 */}
       
       <main className="max-w-md mx-auto px-6 py-8 flex flex-col items-center space-y-6">
         

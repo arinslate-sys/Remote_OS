@@ -1,6 +1,6 @@
 'use client';
 
-import { supabase } from '../../supabaseClient'; // 使用我們統一的客戶端
+import { supabase } from '../../supabaseClient'; // ✅ 修正路徑
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Header from '../../../components/Header'; 

@@ -9,6 +9,13 @@
       "community": "Global Network"
     }
   },
+  "App": {
+    "system_status": "System Online",
+    "nav_home": "Home",
+    "nav_tools": "Tools",
+    "nav_lang_switch_zh": "中文",
+    "nav_lang_switch_en": "English"
+  },
   "Planner": {
     "my_time": "Primary Location",
     "add_city": "Add Base (Demo)",
