@@ -1,0 +1,7 @@
+{
+  "/[locale]/auth/callback/route": "app/[locale]/auth/callback/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/[locale]/finance/page": "app/[locale]/finance/page.js",
+  "/[locale]/login/page": "app/[locale]/login/page.js",
+  "/[locale]/page": "app/[locale]/page.js"
+}

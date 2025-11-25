@@ -1,0 +1,54 @@
+{
+  "App": {
+    "title": "Orbit",
+    "subtitle": "Operating System for Global Mobility.",
+    "system_status": "V1.0 SYSTEM ONLINE",
+    "action_initialize": "Initialize System",
+    "action_add_base": "+ Add Base (Demo)",
+    "label_hubs": "ACTIVE HUBS",
+    "sync_status": "SYNC",
+    "nav_home": "Home",
+    "nav_tools": "Tools Overview",
+    "nav_lang_switch_zh": "Switch to Chinese", 
+    "nav_lang_switch_en": "Switch to English"
+  },
+  "Login": {
+    "welcome": "Welcome Back",
+    "description": "Please sign in with your Google account to continue."
+  },
+  "Finance": {
+    "title": "Finance Tracker",
+    "subtitle": "Track your burn rate effortlessly.",
+    "label_today_spending": "Amount (USD)",
+    "label_is_exceptional": "One-off Expense? (e.g. Flight)",
+    "btn_save": "Log Spending",
+    "success_msg": "Saved! Transaction recorded.",
+    "stat_daily_avg": "Daily Avg",
+    "stat_discipline": "Discipline",
+    "label_category": "Category",
+    "label_date_range": "Date Range (Optional)",
+    "hint_amortization": "Cost will be spread over {days} days: ${daily}/day",
+    "cat_food": "Food & Drink",
+    "cat_housing": "Housing",
+    "cat_transport": "Transport",
+    "cat_visa": "Visa & Legal",
+    "cat_work": "Co-working / Cafe",
+    "cat_other": "Other",
+    "cat_income": "Income (Irregular)"
+  },
+  "VisaTool": {
+    "title": "Residency Days Countdown",
+    "description": "Calculate remaining legal stay days to mitigate overstay risk.",
+    "label_entry_date": "Entry Date",
+    "label_allowed_days": "Allowed Days",
+    "label_days_left": "Days Left"
+  },
+  "CostTool": {
+    "title": "City Cost Comparison",
+    "description": "Compare cost of living, rent, transport, and internet speed between two global cities."
+  },
+  "Planner": {
+    "add_city": "Add City",
+    "remove": "Remove"
+  }
+}
