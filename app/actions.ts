@@ -1,7 +1,7 @@
 // src/app/actions.ts
 'use server';
 
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '../lib/supabaseClient';
 import { revalidatePath } from 'next/cache';
 
 // 定義資料型別
