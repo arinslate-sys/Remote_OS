@@ -1,0 +1,9 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "orbit"
+compatibility_date = "2024-11-01"
+compatibility_flags = [ "nodejs_compat" ]
+
+# 確保 Pages 建置知道去哪裡找輸出
+[pages_build_config]
+build_command = "npm run pages:build"
+build_output_directory = ".vercel/output/static"
