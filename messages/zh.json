@@ -1,16 +1,18 @@
 {
-  "App": {
+  "Index": {
     "title": "Orbit",
-    "subtitle": "專為全球移動者打造的決策系統。",
-    "system_status": "V1.0 系統連線中",
-    "action_initialize": "啟動系統",
-    "action_add_base": "+ 新增據點 (演示)",
-    "label_hubs": "活躍據點",
-    "sync_status": "同步中",
-    "nav_home": "首頁",
-    "nav_tools": "工具總覽",
-    "nav_lang_switch_zh": "切換為中文", 
-    "nav_lang_switch_en": "切換為英文"
+    "description": "專為全球移動者打造的決策系統。",
+    "start_btn": "啟動系統",
+    "features": {
+      "timezone": "跨時區同步",
+      "visa": "邊境與居留權",
+      "community": "全球人脈網"
+    }
+  },
+  "Planner": {
+    "my_time": "主要據點時間",
+    "add_city": "新增據點 (演示)",
+    "remove": "移除"
   },
   "Login": {
     "welcome": "歡迎回來",
@@ -19,36 +21,21 @@
   "Finance": {
     "title": "財務追蹤",
     "subtitle": "輕鬆掌握你的生活燃燒率。",
-    "label_today_spending": "金額 (USD)",
-    "label_is_exceptional": "這是例外支出嗎？(如：機票)",
-    "btn_save": "記錄花費",
-    "success_msg": "已儲存！交易紀錄成功。",
-    "stat_daily_avg": "日均花費",
-    "stat_discipline": "紀律指數",
+    "type_expense": "費用 (Expense)",
+    "type_income": "收入 (Income)",
+    "label_today_spending": "消費金額 (USD)",
+    "label_income_amount": "收入金額 (USD)",
     "label_category": "分類",
-    "label_date_range": "日期範圍 (選填)",
-    "hint_amortization": "費用將分攤至 {days} 天：每日 ${daily}",
+    "label_date_range": "日期範圍",
     "cat_food": "飲食",
     "cat_housing": "住宿",
     "cat_transport": "交通",
-    "cat_visa": "簽證與法務",
-    "cat_work": "工作空間",
+    "cat_work": "工作/咖啡",
+    "cat_visa": "簽證/法務",
+    "cat_income": "收入",
     "cat_other": "其他",
-    "cat_income": "零星收入" 
-  },
-  "VisaTool": {
-    "title": "入境天數倒數",
-    "description": "計算剩餘合法居留天數，降低超期滯留風險。",
-    "label_entry_date": "入境日期",
-    "label_allowed_days": "允許停留天數",
-    "label_days_left": "剩餘天數"
-  },
-  "CostTool": {
-    "title": "城市生活成本比較",
-    "description": "比較全球兩個城市的生活成本、房租、交通與網速。"
-  },
-  "Planner": {
-    "add_city": "新增城市",
-    "remove": "移除"
+    "btn_save": "記錄花費",
+    "success_msg": "✅ 已儲存！交易紀錄成功。",
+    "hint_amortization": "攤提計算：{days} 天，平均每日 {daily}"
   }
 }
