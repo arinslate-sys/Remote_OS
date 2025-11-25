@@ -1,5 +1,5 @@
 // app/lib/residency-api.ts
-import { supabase } from './supabase';
+import { supabase } from '../supabaseClient';
 
 export async function getResidencyLogCount(userId: string): Promise<number> {
     if (!userId) return 0;

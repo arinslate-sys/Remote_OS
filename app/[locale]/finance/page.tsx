@@ -1,4 +1,4 @@
-'use client';
+import { supabase } from '../supabaseClient';
 
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
