@@ -1,3 +1,7 @@
+'use client';
+
+
+// ...
 import { supabase } from '../supabaseClient';
 
 import { useState, useEffect } from 'react';
