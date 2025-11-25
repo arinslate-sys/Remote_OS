@@ -14,7 +14,6 @@ export default function LoginPage() {
   const locale = params.locale as string;
 
   useEffect(() => {
-    // 動態獲取當前網域
     const origin = window.location.origin;
     setRedirectUrl(`${origin}/${locale}/auth/callback`);
   }, [locale]);
@@ -69,31 +68,16 @@ export default function LoginPage() {
 
 ---
 
-### **3. 檢查 Supabase 設定**
+## 📋 關於 `.env.local`:
 
-你需要在 Supabase Dashboard 中設定正確的 Redirect URLs:
+`.env.local` **只在本地開發有效**,部署到 Cloudflare Pages 後**不會**被讀取。
 
-1. 前往 [Supabase Dashboard](https://app.supabase.com)
-2. 選擇你的專案
-3. 前往 **Authentication** → **URL Configuration**
-4. 在 **Redirect URLs** 中新增:
+你需要在 **Cloudflare Pages Dashboard** 手動設定環境變數:
+
+1. 前往 [Cloudflare Pages Dashboard](https://dash.cloudflare.com)
+2. 選擇你的專案 `cipher-sys`
+3. 前往 **Settings** → **Environment variables**
+4. 新增以下變數(Production 和 Preview 都要設定):
 ```
-   https://cipher-sys.pages.dev/en/auth/callback
-   https://cipher-sys.pages.dev/zh/auth/callback
-```
-
-5. 確保 **Site URL** 設定為:
-```
-   https://cipher-sys.pages.dev
-```
-
----
-
-### **4. 檢查環境變數**
-
-確保 Cloudflare Pages 環境變數正確設定:
-
-前往 Cloudflare Pages Dashboard → Settings → Environment Variables:
-```
-NEXT_PUBLIC_SUPABASE_URL=https://vyyssqnmdkncbuftgkko.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5eXNzcW5tZGtuY2J1ZnRna2tvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2NDc3NDYsImV4cCI6MjA3OTIyMzc0Nn0.CNc6GdTLejMElAQHta2uko5T1z8ZmuPFeLxgF_tSivs
+NEXT_PUBLIC_SUPABASE_URL = https://vyyssqnmdkncbuftgkko.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5eXNzcW5tZGtuY2J1ZnRna2tvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2NDc3NDYsImV4cCI6MjA3OTIyMzc0Nn0.CNc6GdTLejMElAQHta2uko5T1z8ZmuPFeLxgF_tSivs
