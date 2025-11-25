@@ -1,45 +1,35 @@
-// app/[locale]/layout.tsx
-import { Inter } from "next/font/google";
-import "../globals.css"; 
-import { notFound } from 'next/navigation';
+import type { Metadata } from "next";
 import { NextIntlClientProvider } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server'; 
+import { getMessages } from 'next-intl/server';
+import "../globals.css"; 
 
-const inter = Inter({ subsets: ["latin"] });
-const locales = ['en', 'zh']; 
+// 【商業級配置】強制使用 Edge Runtime
+// 這讓你的網站能部署到 Cloudflare 全球節點，實現極致速度
+export const runtime = 'edge';
 
-export const metadata = {
-  title: 'Remote Life OS',
-  description: 'Modular toolkit for digital nomads.',
+export const metadata: Metadata = {
+  title: "Orbit",
+  description: "Operating System for Global Mobility",
 };
 
-export default async function LocaleLayout({
+export default async function RootLayout({
   children,
   params
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>; 
+  // Next.js 15/16 規範：params 必須是非同步 Promise
+  params: Promise<{ locale: string }>;
 }) {
+  // 必須先 await 才能讀取 locale，否則會報錯
   const { locale } = await params;
-  
-  if (!locales.includes(locale as any)) notFound();
 
-  setRequestLocale(locale);
-
-  let messages;
-  try {
-    // 維持最穩定的 require 載入方式
-    messages = require(`../../messages/${locale}.json`); 
-  } catch (error) {
-    console.error(`Failed to load messages for locale ${locale}:`, error);
-    notFound(); 
-  }
+  // 伺服器端獲取翻譯訊息
+  const messages = await getMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      {/* 優化：在 body 加入預設深色背景，防止重新整理時閃爍白色 */}
-      <body className={`${inter.className} bg-slate-950 text-white`} suppressHydrationWarning>
-        <NextIntlClientProvider messages={messages} locale={locale}>
+    <html lang={locale}>
+      <body>
+        <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
       </body>
