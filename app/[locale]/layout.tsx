@@ -8,7 +8,7 @@ import "../globals.css";
 export const runtime = 'edge';
 
 export const metadata: Metadata = {
-  title: "Orbit",
+  title: "Cipher", 
   description: "Operating System for Global Mobility",
 };
 
