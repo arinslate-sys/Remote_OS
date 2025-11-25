@@ -1,44 +1,57 @@
-import { supabase } from './supabase';
+// 1. 修正路徑：往上一層 (..) 找到 app 資料夾下的 supabaseClient
+import { supabase } from '../supabaseClient';
 
 // 定義回傳的資料結構
-interface FinanceStats {
+export interface FinanceStats {
   todaySpending: number;
   monthTotal: number;
   disciplineScore: number;
 }
 
 export async function getFinanceStats(userId: string): Promise<FinanceStats> {
+  // 取得今日與本月第一天的日期字串 (YYYY-MM-DD)
   const today = new Date().toISOString().split('T')[0];
   const startOfMonth = new Date().toISOString().slice(0, 7) + '-01';
 
-  // 1. 獲取今日花費
-  const { data: todayLog } = await supabase
-    .from('fin_daily_logs')
-    .select('daily_spending')
+  // 2. 獲取今日花費
+  // 修正：改查 fin_transactions 表格，且只計算支出 (amount < 0)
+  const { data: todayLogs, error: todayError } = await supabase
+    .from('fin_transactions')
+    .select('amount')
     .eq('user_id', userId)
-    .eq('log_date', today)
-    .single();
+    .lt('amount', 0) // 只抓支出
+    .gte('created_at', `${today}T00:00:00`) // 簡單以建立時間為準
+    .lte('created_at', `${today}T23:59:59`);
 
-  // 2. 獲取本月總花費 (這裡做簡單加總，進階版可以用 View)
-  const { data: monthLogs } = await supabase
-    .from('fin_daily_logs')
-    .select('daily_spending')
+  if (todayError) {
+    console.error('Error fetching today stats:', todayError);
+  }
+
+  // 計算總和並取絕對值 (轉為正數顯示)
+  const todaySpending = todayLogs?.reduce((sum, log) => sum + Math.abs(log.amount), 0) || 0;
+
+  // 3. 獲取本月總花費
+  const { data: monthLogs, error: monthError } = await supabase
+    .from('fin_transactions')
+    .select('amount')
     .eq('user_id', userId)
-    .gte('log_date', startOfMonth);
+    .lt('amount', 0)
+    .gte('start_date', startOfMonth); // 使用交易日期篩選
 
-  const monthTotal = monthLogs?.reduce((sum, log) => sum + (log.daily_spending || 0), 0) || 0;
+  if (monthError) {
+    console.error('Error fetching month stats:', monthError);
+  }
 
-  // 3. 獲取紀律分數 (從 View 讀取)
-  // 注意：Materialized View 需要刷新才有數據，這裡先讀取，若無則為 0
-  const { data: rankData } = await supabase
-    .from('v_user_discipline_rank')
-    .select('raw_discipline_score')
-    .eq('user_id', userId)
-    .single();
+  const monthTotal = monthLogs?.reduce((sum, log) => sum + Math.abs(log.amount), 0) || 0;
+
+  // 4. 獲取紀律分數
+  // (目前尚未建立 v_user_discipline_rank View，為避免報錯，先回傳預設值 0 或計算簡單邏輯)
+  // 等未來建立 View 後再開啟
+  const disciplineScore = 0; 
 
   return {
-    todaySpending: todayLog?.daily_spending || 0,
-    monthTotal: monthTotal,
-    disciplineScore: rankData?.raw_discipline_score || 0,
+    todaySpending,
+    monthTotal,
+    disciplineScore,
   };
 }
