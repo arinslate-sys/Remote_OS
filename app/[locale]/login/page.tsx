@@ -1,3 +1,5 @@
+請**完整刪除** `app/[locale]/login/page.tsx` 的所有內容,然後**只貼上**這段純程式碼:
+```typescript
 'use client';
 
 import { supabase } from '../../supabaseClient';
@@ -65,19 +67,3 @@ export default function LoginPage() {
   );
 }
 ```
-
----
-
-## 📋 關於 `.env.local`:
-
-`.env.local` **只在本地開發有效**,部署到 Cloudflare Pages 後**不會**被讀取。
-
-你需要在 **Cloudflare Pages Dashboard** 手動設定環境變數:
-
-1. 前往 [Cloudflare Pages Dashboard](https://dash.cloudflare.com)
-2. 選擇你的專案 `cipher-sys`
-3. 前往 **Settings** → **Environment variables**
-4. 新增以下變數(Production 和 Preview 都要設定):
-```
-NEXT_PUBLIC_SUPABASE_URL = https://vyyssqnmdkncbuftgkko.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5eXNzcW5tZGtuY2J1ZnRna2tvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2NDc3NDYsImV4cCI6MjA3OTIyMzc0Nn0.CNc6GdTLejMElAQHta2uko5T1z8ZmuPFeLxgF_tSivs
