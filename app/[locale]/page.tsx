@@ -21,7 +21,7 @@ function LandingPage({ locale }: { locale: string }) {
              <span className="text-sm font-bold tracking-[0.2em] text-blue-400 uppercase">System Online</span>
           </div>
           <h1 className="text-5xl md:text-6xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400">
-            Orbit OS
+            Cipher-OS
           </h1>
           <p className="text-lg text-slate-400 leading-relaxed">
             The operating system for your global mobility, finance, and logistics.
