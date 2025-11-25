@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import { DateTime } from 'luxon';
 import { useTranslations } from 'next-intl';
-import { getCities, addRandomCity, removeCity, type City } from '@/app/actions';
+import { getCities, addRandomCity, removeCity, type City } from '../app/actions';
 
 export default function TimezonePlanner() {
   const t = useTranslations('Planner');
